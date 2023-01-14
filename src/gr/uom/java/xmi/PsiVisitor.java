@@ -87,15 +87,16 @@ public class PsiVisitor extends PsiRecursiveElementWalkingVisitor {
             tree.setParentAndUpdateChildren(parent);
         }
 
-        if (element instanceof PsiClass)
+        if (element instanceof PsiClass) {
             tree.setMetadata("id", "Type " + ((PsiClass) element).getName());
-        else if (element instanceof PsiMethod)
+        } else if (element instanceof PsiMethod) {
             tree.setMetadata("id", "Method " + ((PsiMethod) element).getName() + "(" +
                     Arrays.stream(((PsiMethod) element).getParameters())
                             .map(param -> getLastElement(param.getType().toString().split(":")))
                             .collect(Collectors.joining(" ")) + ")");
-        else if (element instanceof PsiField)
+        } else if (element instanceof PsiField) {
             tree.setMetadata("id", "Field " + ((PsiField) element).getName());
+        }
 
         trees.push(tree);
     }
